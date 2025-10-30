@@ -10,19 +10,40 @@ public class Main {
         port(4567);
         Gson gson = new Gson();
 
-        // Rutas de la API
+        // ✅ Configuración global
+        before((req, res) -> res.type("application/json"));
+
+        // 🟢 GET - Obtener todos los productos
         get("/productos", (req, res) -> {
-            res.type("application/json");
             try {
                 return gson.toJson(ProductService.getAllProducts());
             } catch (SQLException e) {
                 res.status(500);
-                return gson.toJson(Map.of("error", "Error al obtener los productos"));
+                return gson.toJson(Map.of("error", "Error al obtener los productos: " + e.getMessage()));
             }
         });
 
+        // 🟢 GET - Obtener producto por ID
+        get("/productos/:id", (req, res) -> {
+            try {
+                int id = Integer.parseInt(req.params("id"));
+                Product product = ProductService.getProductById(id);
+                if (product == null) {
+                    res.status(404);
+                    return gson.toJson(Map.of("error", "Producto no encontrado"));
+                }
+                return gson.toJson(product);
+            } catch (NumberFormatException e) {
+                res.status(400);
+                return gson.toJson(Map.of("error", "ID inválido"));
+            } catch (SQLException e) {
+                res.status(500);
+                return gson.toJson(Map.of("error", "Error al obtener el producto"));
+            }
+        });
+
+        // 🟢 POST - Agregar un nuevo producto
         post("/productos", (req, res) -> {
-            res.type("application/json");
             Product product = gson.fromJson(req.body(), Product.class);
 
             if (product.getNombre() == null || product.getNombre().trim().isEmpty()
@@ -38,6 +59,52 @@ public class Main {
             } catch (SQLException e) {
                 res.status(500);
                 return gson.toJson(Map.of("error", "Error al agregar el producto"));
+            }
+        });
+
+        // 🟠 PUT - Actualizar un producto por ID
+        put("/productos/:id", (req, res) -> {
+            try {
+                int id = Integer.parseInt(req.params("id"));
+                Product existing = ProductService.getProductById(id);
+                if (existing == null) {
+                    res.status(404);
+                    return gson.toJson(Map.of("error", "Producto no encontrado"));
+                }
+
+                Product updated = gson.fromJson(req.body(), Product.class);
+                existing.setNombre(updated.getNombre());
+                existing.setDescripcion(updated.getDescripcion());
+                existing.setCosto(updated.getCosto());
+                existing.setCantidad(updated.getCantidad());
+
+                ProductService.updateProduct(existing);
+                return gson.toJson(existing);
+            } catch (NumberFormatException e) {
+                res.status(400);
+                return gson.toJson(Map.of("error", "ID inválido"));
+            } catch (SQLException e) {
+                res.status(500);
+                return gson.toJson(Map.of("error", "Error al actualizar el producto"));
+            }
+        });
+
+        // 🔴 DELETE - Eliminar producto por ID
+        delete("/productos/:id", (req, res) -> {
+            try {
+                int id = Integer.parseInt(req.params("id"));
+                boolean deleted = ProductService.deleteProduct(id);
+                if (!deleted) {
+                    res.status(404);
+                    return gson.toJson(Map.of("error", "Producto no encontrado"));
+                }
+                return gson.toJson(Map.of("message", "Producto eliminado correctamente"));
+            } catch (NumberFormatException e) {
+                res.status(400);
+                return gson.toJson(Map.of("error", "ID inválido"));
+            } catch (SQLException e) {
+                res.status(500);
+                return gson.toJson(Map.of("error", "Error al eliminar el producto"));
             }
         });
 
