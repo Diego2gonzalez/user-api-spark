@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Products</title>
+  <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/css/custom.css">
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/templatemo.css">
+
+  <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+</head>
+<body>
+
+<!-- ✅ Navbar (puedes reutilizar tu header.js o pegar el HTML del menú si no lo importas dinámicamente) -->
+<!-- Start Top Nav -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
+        <div class="container text-light">
+            <div class="w-100 d-flex justify-content-between">
+                <div>
+                    <i class="fa fa-envelope mx-2"></i>
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:info@company.com">info@company.com</a>
+                    <i class="fa fa-phone mx-2"></i>
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
+                </div>
+                <div>
+                    <a class="text-light" href="https://fb.com/templatemo" target="_blank" rel="sponsored"><i class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
+                    <a class="text-light" href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram fa-sm fa-fw me-2"></i></a>
+                    <a class="text-light" href="https://twitter.com/" target="_blank"><i class="fab fa-twitter fa-sm fa-fw me-2"></i></a>
+                    <a class="text-light" href="https://www.linkedin.com/" target="_blank"><i class="fab fa-linkedin fa-sm fa-fw"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Close Top Nav -->
+
+
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-light shadow">
+        <div class="container d-flex justify-content-between align-items-center">
+
+            <a class="navbar-brand text-success logo h1 align-self-center" href="/#">
+                <img src="/assets/img/logo.png" alt="Logo" class="logo-img">
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+                <div class="flex-fill">
+                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/products">My Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/#">Shop</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/#">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar align-self-center d-flex">
+                    <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="inputMobileSearch" placeholder="Search ...">
+                            <div class="input-group-text">
+                                <i class="fa fa-fw fa-search"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
+                        <i class="fa fa-fw fa-search text-dark mr-2"></i>
+                    </a>
+                    <a class="nav-icon position-relative text-decoration-none" href="#">
+                        <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
+                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
+                    </a>
+                    <a class="nav-icon position-relative text-decoration-none" href="#">
+                        <i class="fa fa-fw fa-user text-dark mr-3"></i>
+                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">+99</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+
+<!-- ✅ Products table -->
+<section class="container py-5">
+  <div class="row text-center pt-3">
+      <div class="col-lg-6 m-auto">
+          <h1 class="h1">My Products</h1>
+          <p>You can view and manage all your registered products here.</p>
+      </div>
+  </div>
+
+  <div class="row justify-content-center mt-4">
+      <div class="col-12">
+          <table class="table table-striped table-bordered">
+              <thead class="table-dark">
+                  <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Price</th>
+                      <th>Description</th>
+                      <th>Actions</th>
+                  </tr>
+              </thead>
+              <tbody>
+                {{#products}}
+                <tr>
+                    <td>{{id}}</td>
+                    <td>{{nombre}}</td>
+                    <td>$ {{costo}}</td>
+                    <td>{{descripcion}}</td>
+                    <td>
+                        <button class="btn btn-outline-primary btn-sm"
+                                onclick="openEditModal({{id}}, '{{nombre}}', {{costo}}, '{{descripcion}}')">
+                            Edit
+                        </button>
+                        <button class="btn btn-outline-danger btn-sm"
+                                onclick="openDeleteModal({{id}})">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+                {{/products}}
+
+                {{^products}}
+                <tr>
+                    <td colspan="5" class="text-center text-muted">No products found.</td>
+                </tr>
+                {{/products}}
+            </tbody>
+          </table>
+      </div>
+  </div>
+</section>
+
+{{> modals.mustache}}
+
+<!-- Scripts -->
+<script src="/assets/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/js/addProduct.js"></script>
+<script src="/assets/js/editProduct.js"></script>
+<script src="/assets/js/deleteProduct.js"></script>
+
+<script>
+  function openEditModal(id, nombre, costo, descripcion) {
+    document.getElementById('editId').value = id;
+    document.getElementById('editNombre').value = nombre;
+    document.getElementById('editDescripcion').value = descripcion;
+    document.getElementById('editCosto').value = costo;
+    const modal = new bootstrap.Modal(document.getElementById('editProductModal'));
+    modal.show();
+  }
+
+  function openDeleteModal(id) {
+    document.getElementById('deleteProductId').value = id;
+    const modal = new bootstrap.Modal(document.getElementById('deleteProductModal'));
+    modal.show();
+  }
+</script>
+</body>
+</html>
