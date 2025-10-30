@@ -1,0 +1,12 @@
+/* Reduce y adapta el tamaño del logo */
+.logo-img {
+  height: 120px;          /* o el tamaño que necesites */
+  width: auto;           /* mantiene proporción */
+}
+
+/* — Opcional — si quieres un poco de espacio alrededor */
+.logo-img {
+  height: 120px;
+  width: auto;
+  margin-top: 5px;
+}
