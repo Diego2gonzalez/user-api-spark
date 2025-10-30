@@ -36,7 +36,6 @@
             <version>1.4.11</version>
         </dependency>
 
-         <!-- SLF4J API -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
