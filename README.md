@@ -149,7 +149,20 @@ Java_Spark_for_web_apps/
 ![Delete Product](images/delete.jpg)
 
 ---
+## 🚀 Next Sprint – Upcoming Tasks
 
+In the next sprint, we will continue improving the project with new features and quality updates.
+
+### 🧭 Planned Tasks:
+1. ✅ Use a checklist to make sure all functions and quality goals are complete before finishing development.
+2. 🔍 Add **filters for the items** to help users find products easily.
+3. 💲 Create the logic for **real-time price updates**.
+4. 🧩 Develop the source code to include:
+    - Item filters
+    - A **WebSocket** for real-time price changes
+5. 📤 Update the GitHub repository with all deliverables for this sprint.
+
+---
 ## ⚖️ License
 This project is **free software**.  
 You can use, modify, and share it for learning and development.
