@@ -1,29 +1,51 @@
-# 🛍️ Collectibles Store API – Sprint 1
+# 🧩 Java Spark Web App
 
-This project is the first stage of the **Java Web Application Development Challenge**.  
-It implements an **API service** for an online collectibles store using **Java** and the **Spark framework**.
-
----
-
-## 🚀 Project Overview
-
-The goal of this Sprint is to create a functional **REST API** that manages users of the online store.  
-It includes all CRUD operations (Create, Read, Update, Delete) and follows clean coding and modular configuration using Maven.
+This project is a simple web application made with **Java Spark Framework**.  
+It allows users to view, add, edit, and delete products.  
+It also includes a small admin panel and database connection.
 
 ---
 
-## 🧩 Technologies Used
+## 📘 Table of Contents
+1. [📝 Description](#-description)  
+2. [🧰 Technologies Used](#-technologies-used)  
+3. [⚙️ Features](#️-features)  
+4. [📦 Maven Configuration](#-maven-configuration)  
+5. [🗂️ Project Structure](#️-project-structure)  
+6. [🚀 How to Run the Project](#-how-to-run-the-project)  
+7. [🖼️ Screenshots](#️-screenshots)  
+8. [⚖️ License](#️-license)
 
-- **Java 17**
-- **Spark Framework** (for API routes)
-- **Gson** (for JSON handling)
-- **Logback** (for logging)
-- **Maven** (for dependency management)
+---
+
+## 📝 Description
+**Java_Spark_for_web_apps** is a simple CRUD (Create, Read, Update, Delete) project using **Spark Java**, **Gson**, and **Mustache** templates.  
+It connects to a database and allows basic product management.
+
+---
+
+## 🧰 Technologies Used
+- **Java 17+**
+- **Spark Framework 2.9.4**
+- **Gson 2.10.1**
+- **Logback 1.2.11**
+- **Mustache Templates**
+- **HTML, CSS, JavaScript**
+- **MySQL**
+
+---
+
+## ⚙️ Features
+✅ Product list in table view  
+✅ Add new product  
+✅ Edit product  
+✅ Delete product  
+✅ Admin panel for easy control  
+✅ Modular code structure  
 
 ---
 
 ## 📦 Maven Configuration
-
 Main dependencies used in the `pom.xml` file:
 
 ```xml
@@ -53,104 +75,85 @@ Main dependencies used in the `pom.xml` file:
 
 ---
 
-## 🧠 API Endpoints
-
-| Method | Endpoint          | Description                        |
-|:-------|:------------------|:-----------------------------------|
-| GET    | `/users`          | Get all users                      |
-| GET    | `/users/:id`      | Get a user by ID                   |
-| POST   | `/users/:id`      | Add a new user                     |
-| PUT    | `/users/:id`      | Edit an existing user              |
-| OPTIONS| `/users/:id`      | Check if a user exists             |
-| DELETE | `/users/:id`      | Delete a specific user             |
-
----
-
-## 🧪 How to Run the Project
-
-### 1️⃣ Clone the repository
-```bash
-git clone https://github.com/your-username/collectibles-store-api.git
+## 🗂️ Project Structure
 ```
-
-### 2️⃣ Open in IntelliJ IDEA
-- Open the project folder
-- Wait for Maven to load dependencies
-
-### 3️⃣ Run the application
-- Open `Main.java`
-- Click ▶️ **Run**
-
-### 4️⃣ Access the API
-- Base URL: `http://localhost:4567`
-- Test endpoints using **Thunder Client** or **Postman**
-
-Example:
-```bash
-GET http://localhost:4567/users
+Java_Spark_for_web_apps/
+├── DB/                     # SQL scripts
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/example/
+│   │   │       ├── productapi/
+│   │   │       │   ├── DBConnection.java
+│   │   │       │   ├── ExceptionHandlerModule.java
+│   │   │       │   ├── InvalidInputException.java
+│   │   │       │   ├── Main.java
+│   │   │       │   ├── Product.java
+│   │   │       │   ├── ProductNotFoundException.java
+│   │   │       │   └── ProductService.java
+│   │   │       └── userapi/
+│   │   └── resources/
+│   │       ├── public/
+│   │       │   ├── script.js
+│   │       │   └── styles.css
+│   │       └── templates/
+│   │           ├── form.mustache
+│   │           ├── index.mustache
+│   │           ├── modals.mustache
+│   │           ├── products.mustache
+│   │           └── users.mustache
+│   └── logback.xml
+└── pom.xml
 ```
 
 ---
 
-## ⚡ Example Requests (Thunder Client)
-
-**POST /users/1**
-```
-Body: Diego
-```
-Response:
-```
-User added: Diego
-```
-
-**GET /users**
-```
-{"1": "Diego"}
-```
-
-**PUT /users/1**
-```
-Body: Diego G.
-```
-Response:
-```
-User updated: Diego G.
-```
+## 🚀 How to Run the Project
+1. Install **Java 17+** and **Maven**.  
+2. Clone the repository:  
+   ```bash
+   git clone https://github.com/yourusername/Java_Spark_for_web_apps.git
+   ```
+3. Go to the project folder:  
+   ```bash
+   cd Java_Spark_for_web_apps
+   ```
+4. Build and run the project:  
+   ```bash
+   mvn clean install
+   mvn exec:java -Dexec.mainClass="com.example.productapi.Main"
+   ```
+5. Open your browser and go to:  
+   **http://localhost:4567**
 
 ---
 
-## 📚 Project Structure
+## 🖼️ Screenshots
 
-```
-📁 src
- ┣ 📂 main
- ┃ ┣ 📂 java
- ┃ ┃ ┗ 📜 Main.java
- ┃ ┗ 📂 resources
- ┃    ┗ 📜 logback.xml
- ┣ 📜 pom.xml
- ┣ 📜 README.md
-```
+🏠 **Home Page**  
+![Home Page](https://i.imgur.com/9P8Qv2N.png)
 
----
+⚙️ **Admin Panel**  
+![Admin Panel](https://i.imgur.com/vBgYsQq.png)
 
-## 🗒️ Key Decisions and Notes
+📋 **Product Table View (CRUD)**  
+![Product Table](https://i.imgur.com/hyKf7Tx.png)
 
-- Spark was chosen for its simplicity and lightweight structure for small web apps.
-- Gson was added to serialize and deserialize JSON data efficiently.
-- Logback provides clean console logs for each request, improving debugging.
+➕ **Add Product Modal**  
+![Add Product](https://i.imgur.com/mMFiVKR.png)
 
----
+✏️ **Edit Product Modal**  
+![Edit Product](https://i.imgur.com/83vTXon.png)
 
-## 👥 Author
-
-**Diego González Miranda** – Java Web Developer  
-Project developed as part of the **Digital NAO Challenge – Sprint 1**
+❌ **Delete Product Modal**  
+![Delete Product](https://i.imgur.com/n2B5vXp.png)
 
 ---
 
-## 🏁 Next Steps (Sprint 2 Preview)
+## ⚖️ License
+This project is **free software**.  
+You can use, modify, and share it for learning and development.
 
-- Add Mustache templates for views  
-- Implement forms for item offers  
-- Add custom exception handling
+---
+
+📚 *Made with ❤️ using Java Spark Framework*
