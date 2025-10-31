@@ -131,22 +131,22 @@ Java_Spark_for_web_apps/
 ## 🖼️ Screenshots
 
 🏠 **Home Page**  
-![Home Page](https://i.imgur.com/9P8Qv2N.png)
+![Home Page](images/inicio.jpg)
 
 ⚙️ **Admin Panel**  
-![Admin Panel](https://i.imgur.com/vBgYsQq.png)
+![Admin Panel](images/options.jpg)
 
 📋 **Product Table View (CRUD)**  
-![Product Table](https://i.imgur.com/hyKf7Tx.png)
+![Product Table](images/All.jpg)
 
 ➕ **Add Product Modal**  
-![Add Product](https://i.imgur.com/mMFiVKR.png)
+![Add Product](images/add.jpg)
 
 ✏️ **Edit Product Modal**  
-![Edit Product](https://i.imgur.com/83vTXon.png)
+![Edit Product](images/modify.jpg)
 
 ❌ **Delete Product Modal**  
-![Delete Product](https://i.imgur.com/n2B5vXp.png)
+![Delete Product](images/delete.jpg)
 
 ---
 
