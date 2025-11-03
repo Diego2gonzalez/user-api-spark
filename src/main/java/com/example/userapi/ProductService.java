@@ -95,4 +95,56 @@ public class ProductService {
             return rowsAffected > 0;
         }
     }
+
+    public static List<Product> filterProducts(
+        String nombre,
+        String minCosto,
+        String maxCosto,
+        String minCantidad,
+        String maxCantidad) throws SQLException {
+
+    StringBuilder sql = new StringBuilder("SELECT * FROM productos WHERE 1=1");
+    List<Object> params = new ArrayList<>();
+
+    if (nombre != null && !nombre.isEmpty()) {
+        sql.append(" AND nombre LIKE ?");
+        params.add("%" + nombre + "%");
+    }
+    if (minCosto != null && !minCosto.isEmpty()) {
+        sql.append(" AND costo >= ?");
+        params.add(Double.parseDouble(minCosto));
+    }
+    if (maxCosto != null && !maxCosto.isEmpty()) {
+        sql.append(" AND costo <= ?");
+        params.add(Double.parseDouble(maxCosto));
+    }
+    if (minCantidad != null && !minCantidad.isEmpty()) {
+        sql.append(" AND cantidad >= ?");
+        params.add(Integer.parseInt(minCantidad));
+    }
+    if (maxCantidad != null && !maxCantidad.isEmpty()) {
+        sql.append(" AND cantidad <= ?");
+        params.add(Integer.parseInt(maxCantidad));
+    }
+
+    try (Connection conn = DBConnection.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql.toString())) {
+
+        for (int i = 0; i < params.size(); i++)
+            ps.setObject(i + 1, params.get(i));
+
+        ResultSet rs = ps.executeQuery();
+        List<Product> products = new ArrayList<>();
+        while (rs.next()) {
+            Product p = new Product();
+            p.setId(rs.getInt("id"));
+            p.setNombre(rs.getString("nombre"));
+            p.setDescripcion(rs.getString("descripcion"));
+            p.setCosto(rs.getDouble("costo"));
+            p.setCantidad(rs.getInt("cantidad"));
+            products.add(p);
+        }
+        return products;
+    }
+}
 }

@@ -56,6 +56,12 @@
         </dependency>
     </dependencies>
 
+        <dependency>
+            <groupId>org.eclipse.jetty.websocket</groupId>
+            <artifactId>websocket-server</artifactId>
+            <version>9.4.53.v20231009</version>
+        </dependency>
+
     <build>
   <plugins>
     <plugin>
@@ -68,7 +74,6 @@
       </configuration>
     </plugin>
 
-    <!-- 👇 Add this new block 👇 -->
      <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>

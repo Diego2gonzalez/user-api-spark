@@ -92,6 +92,28 @@
         </div>
     </nav>
 
+<!-- 🔍 Filters Section -->
+<div class="row my-4">
+  <div class="col-md-2">
+    <input type="text" id="filterNombre" class="form-control" placeholder="Name">
+  </div>
+  <div class="col-md-2">
+    <input type="number" id="filterMinCosto" class="form-control" placeholder="Min Price">
+  </div>
+  <div class="col-md-2">
+    <input type="number" id="filterMaxCosto" class="form-control" placeholder="Max Price">
+  </div>
+  <div class="col-md-2">
+    <input type="number" id="filterMinCantidad" class="form-control" placeholder="Min Qty">
+  </div>
+  <div class="col-md-2">
+    <input type="number" id="filterMaxCantidad" class="form-control" placeholder="Max Qty">
+  </div>
+  <div class="col-md-2">
+    <button class="btn btn-success w-100" onclick="applyFilters()">Apply</button>
+  </div>
+</div>
+
 <!-- ✅ Products table -->
 <section class="container py-5">
   <div class="row text-center pt-3">
@@ -104,42 +126,36 @@
   <div class="row justify-content-center mt-4">
       <div class="col-12">
           <table class="table table-striped table-bordered">
-              <thead class="table-dark">
-                  <tr>
-                      <th>ID</th>
-                      <th>Name</th>
-                      <th>Price</th>
-                      <th>Description</th>
-                      <th>Actions</th>
-                  </tr>
-              </thead>
-              <tbody>
+            <thead class="table-dark">
+                <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Quantity</th>   <!-- ✅ Nueva columna -->
+                <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="productTableBody">
                 {{#products}}
                 <tr>
-                    <td>{{id}}</td>
-                    <td>{{nombre}}</td>
-                    <td>$ {{costo}}</td>
-                    <td>{{descripcion}}</td>
-                    <td>
-                        <button class="btn btn-outline-primary btn-sm"
-                                onclick="openEditModal({{id}}, '{{nombre}}', {{costo}}, '{{descripcion}}')">
-                            Edit
-                        </button>
-                        <button class="btn btn-outline-danger btn-sm"
-                                onclick="openDeleteModal({{id}})">
-                            Delete
-                        </button>
-                    </td>
-                </tr>
-                {{/products}}
-
-                {{^products}}
-                <tr>
-                    <td colspan="5" class="text-center text-muted">No products found.</td>
+                <td>{{id}}</td>
+                <td>{{nombre}}</td>
+                <td id="price-{{id}}">$ {{costo}}</td>
+                <td>{{descripcion}}</td>
+                <td>{{cantidad}}</td>   <!-- ✅ Aquí la cantidad -->
+                <td>
+                    <button class="btn btn-outline-primary btn-sm"
+                            onclick="openEditModal({{id}}, '{{nombre}}', {{costo}}, '{{descripcion}}')">
+                    Edit
+                    </button>
+                    <button class="btn btn-outline-danger btn-sm"
+                            onclick="openDeleteModal({{id}})">Delete</button>
+                </td>
                 </tr>
                 {{/products}}
             </tbody>
-          </table>
+</table>
       </div>
   </div>
 </section>
@@ -168,5 +184,104 @@
     modal.show();
   }
 </script>
+
+<script>
+  // 🧠 Abre la conexión con tu servidor Spark (WebSocket)
+  // Usa 'ws://' para desarrollo local o 'wss://' si usas HTTPS en producción.
+  const socket = new WebSocket("ws://localhost:4567/prices");
+
+  // Cuando la conexión se abre
+  socket.onopen = () => {
+    console.log("🟢 WebSocket connected to /prices");
+  };
+
+  // Cuando llega un mensaje desde el servidor
+  socket.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    console.log(`📡 Price update for Product #${data.productId}: $${data.newPrice}`);
+
+    // 💡 Actualización visual opcional: buscar celda en tabla y cambiar valor
+    const cell = document.querySelector(`#price-${data.productId}`);
+    if (cell) {
+      cell.textContent = `$${data.newPrice.toFixed(2)}`;
+      cell.style.color = "green";
+      setTimeout(() => (cell.style.color = ""), 1500);
+    }
+  };
+
+  // Cuando el socket se cierra
+  socket.onclose = () => {
+    console.warn("🔴 WebSocket disconnected");
+  };
+
+  // Si ocurre algún error
+  socket.onerror = (error) => {
+    console.error("⚠️ WebSocket error:", error);
+  };
+</script>
+
+<script>
+  // 🧠 Construye la URL con los parámetros y llama al endpoint /productos/filter
+  async function applyFilters() {
+    const nombre = document.getElementById("filterNombre").value.trim();
+    const minCosto = document.getElementById("filterMinCosto").value.trim();
+    const maxCosto = document.getElementById("filterMaxCosto").value.trim();
+    const minCantidad = document.getElementById("filterMinCantidad").value.trim();
+    const maxCantidad = document.getElementById("filterMaxCantidad").value.trim();
+
+    let url = "/productos/filter?";
+    const params = [];
+    if (nombre) params.push(`nombre=${encodeURIComponent(nombre)}`);
+    if (minCosto) params.push(`minCosto=${minCosto}`);
+    if (maxCosto) params.push(`maxCosto=${maxCosto}`);
+    if (minCantidad) params.push(`minCantidad=${minCantidad}`);
+    if (maxCantidad) params.push(`maxCantidad=${maxCantidad}`);
+    url += params.join("&");
+
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error("Server error");
+      const products = await res.json();
+      renderFilteredProducts(products);
+
+    } catch (err) {
+      console.error(err);
+      alert("Error applying filters");
+    }
+  }
+
+  // 🧩 Actualiza la tabla con los resultados filtrados
+  function renderFilteredProducts(products) {
+  const tbody = document.getElementById("productTableBody");
+  tbody.innerHTML = ""; // limpia la tabla
+
+  if (!products || products.length === 0) {
+    tbody.innerHTML =
+      `<tr><td colspan="7" class="text-center text-muted">No products found.</td></tr>`;
+    return;
+  }
+
+  products.forEach(p => {
+    const row = `
+      <tr>
+        <td>${p.id}</td>
+        <td>${p.nombre}</td>
+        <td id="price-${p.id}">$ ${p.costo}</td>
+        <td>${p.descripcion || ""}</td>
+        <td>${p.cantidad}</td>   <!-- ✅ Nueva columna -->
+        <td>
+          <button class="btn btn-outline-primary btn-sm"
+                  onclick="openEditModal(${p.id}, '${p.nombre}', ${p.costo}, '${p.descripcion || ""}')">
+            Edit
+          </button>
+          <button class="btn btn-outline-danger btn-sm"
+                  onclick="openDeleteModal(${p.id})">Delete</button>
+        </td>
+      </tr>`;
+    tbody.insertAdjacentHTML("beforeend", row);
+  });
+}
+</script>
+
 </body>
 </html>
