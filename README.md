@@ -1,70 +1,76 @@
-# 🧩 Java Spark Web App
+# 🚀 Java Spark Web Application
 
-This project is a simple web application made with **Java Spark Framework**.  
-It allows users to view, add, edit, and delete products.  
-It also includes a small admin panel and database connection.
+This project is a simple **web application** built using the **Java Spark Framework**.  
+It allows users to **view**, **add**, **edit**, and **delete** products.  
+It also includes a small **admin panel** and **database connection**.
 
 ---
 
 ## 📘 Table of Contents
-1. [📝 Description](#-description)  
-2. [🧰 Technologies Used](#-technologies-used)  
-3. [⚙️ Features](#️-features)  
-4. [📦 Maven Configuration](#-maven-configuration)  
-5. [🗂️ Project Structure](#️-project-structure)  
-6. [🚀 How to Run the Project](#-how-to-run-the-project)  
-7. [🖼️ Screenshots](#️-screenshots)  
-8. [⚖️ License](#️-license)
+
+* [📝 Description](#-description)
+* [🧰 Technologies Used](#-technologies-used)
+* [⚙️ Features](#%EF%B8%8F-features)
+* [📦 Maven Configuration](#-maven-configuration)
+* [🗂️ Project Structure](#-project-structure)
+* [🚀 How to Run the Project](#-how-to-run-the-project)
+* [🖼️ Screenshots](#-screenshots)
+* [⚙️ Development Progress](#%EF%B8%8F-development-progress)
+* [⚖️ License](#-license)
 
 ---
 
 ## 📝 Description
-**Java_Spark_for_web_apps** is a simple CRUD (Create, Read, Update, Delete) project using **Spark Java**, **Gson**, and **Mustache** templates.  
-It connects to a database and allows basic product management.
+
+`Java_Spark_for_web_apps` is a simple **CRUD (Create, Read, Update, Delete)** web application that uses **Spark Java**, **Gson**, and **Mustache templates**.  
+It connects to a database and allows basic product management through an interactive interface.
 
 ---
 
 ## 🧰 Technologies Used
-- **Java 17+**
-- **Spark Framework 2.9.4**
-- **Gson 2.10.1**
-- **Logback 1.2.11**
-- **Mustache Templates**
-- **HTML, CSS, JavaScript**
-- **MySQL**
+
+* **Java 17+**
+* **Spark Framework 2.9.4**
+* **Gson 2.10.1**
+* **Logback 1.2.11**
+* **Mustache Templates**
+* **HTML, CSS, JavaScript**
+* **MySQL**
 
 ---
 
 ## ⚙️ Features
-✅ Product list in table view  
-✅ Add new product  
-✅ Edit product  
-✅ Delete product  
-✅ Admin panel for easy control  
-✅ Modular code structure  
+
+✅ **Product list displayed in a table view**  
+✅ **Add new product**  
+✅ **Edit existing product**  
+✅ **Delete product**  
+✅ **Admin panel for easy management**  
+✅ **Modular and maintainable code structure**  
+✅ **Database connectivity for persistent data**  
+✅ **Item filtering for faster searches**  
+✅ **Real-time price updates using WebSockets**
 
 ---
 
 ## 📦 Maven Configuration
-Main dependencies used in the `pom.xml` file:
+
+The main dependencies used in the `pom.xml` file:
 
 ```xml
 <dependencies>
-    <!-- Spark Framework -->
     <dependency>
         <groupId>com.sparkjava</groupId>
         <artifactId>spark-core</artifactId>
         <version>2.9.4</version>
     </dependency>
 
-    <!-- Gson for JSON serialization -->
     <dependency>
         <groupId>com.google.code.gson</groupId>
         <artifactId>gson</artifactId>
         <version>2.10.1</version>
     </dependency>
 
-    <!-- Logback for logging -->
     <dependency>
         <groupId>ch.qos.logback</groupId>
         <artifactId>logback-classic</artifactId>
@@ -76,9 +82,10 @@ Main dependencies used in the `pom.xml` file:
 ---
 
 ## 🗂️ Project Structure
-```
+```bash
+
 Java_Spark_for_web_apps/
-├── DB/                     # SQL scripts
+├── DB/                     # Scripts SQL
 ├── src/
 │   ├── main/
 │   │   ├── java/
@@ -105,68 +112,81 @@ Java_Spark_for_web_apps/
 │   └── logback.xml
 └── pom.xml
 ```
-
 ---
 
 ## 🚀 How to Run the Project
-1. Install **Java 17+** and **Maven**.  
-2. Clone the repository:  
+
+1. **Install Java 17+ and Maven.**
+2. **Clone the repository:**
    ```bash
    git clone https://github.com/yourusername/Java_Spark_for_web_apps.git
-   ```
-3. Go to the project folder:  
-   ```bash
-   cd Java_Spark_for_web_apps
-   ```
-4. Build and run the project:  
-   ```bash
-   mvn clean install
-   mvn exec:java -Dexec.mainClass="com.example.productapi.Main"
-   ```
-5. Open your browser and go to:  
-   **http://localhost:4567**
+Navigate to the project folder:
 
----
+bash
+Copy code
+cd Java_Spark_for_web_apps
+Build and run the project:
+
+bash
+Copy code
+mvn clean install
+mvn exec:java -Dexec.mainClass="com.example.productapi.Main"
+Open your browser and go to:
+http://localhost:4567
 
 ## 🖼️ Screenshots
+Here are some screenshots showing the application in action:
 
-🏠 **Home Page**  
-![Home Page](images/inicio.jpg)
+🏠 Home Page
+![Home](images/inicio.jpg)
 
-⚙️ **Admin Panel**  
-![Admin Panel](images/options.jpg)
+⚙️ Admin Panel
+![Home](images/options.jpg)
+📋 Product Table View (CRUD)
+![Home](images/all.jpg)
+➕ Add Product Modal
+![Home](images/add.jpg)
+✏️ Edit Product Modal
+![Home](images/modify.jpg)
+❌ Delete Product Modal
+![Home](images/delete.jpg)
+🔍 Item Filters Implemented
+![Home](images/filter.jpg)
+💲 Real-Time Price Update Feature
+![Home](images/price.jpg)
+## ⚙️ Development Progress
+✅ Completed Tasks
+🧩 From Previous Sprints:
+Full CRUD operations — users can easily create, read, update, and delete products through the web interface.
 
-📋 **Product Table View (CRUD)**  
-![Product Table](images/All.jpg)
+Integration of Mustache templates for dynamic HTML rendering.
 
-➕ **Add Product Modal**  
-![Add Product](images/add.jpg)
+Exception handling module for structured error management.
 
-✏️ **Edit Product Modal**  
-![Edit Product](images/modify.jpg)
+Logback configuration for server-side logging.
 
-❌ **Delete Product Modal**  
-![Delete Product](images/delete.jpg)
+Admin panel added for intuitive system management.
 
----
-## 🚀 Next Sprint – Upcoming Tasks
+Database connection established through DBConnection.java.
 
-In the next sprint, we will continue improving the project with new features and quality updates.
+## 🚀 Recent Improvements:
+✅ Checklist validation — ensured all required functionalities and quality criteria were verified before finalizing development.
 
-### 🧭 Planned Tasks:
-1. ✅ Use a checklist to make sure all functions and quality goals are complete before finishing development.
-2. 🔍 Add **filters for the items** to help users find products easily.
-3. 💲 Create the logic for **real-time price updates**.
-4. 🧩 Develop the source code to include:
-    - Item filters
-    - A **WebSocket** for real-time price changes
-5. 📤 Update the GitHub repository with all deliverables for this sprint.
+🔍 Item filters implemented — users can now search or filter products quickly within the table.
 
----
+💲 Real-time price update logic — added WebSocket functionality for instant price modifications without page reload.
+
+🧩 Code Updates and Modular Enhancements:
+Added filtering logic to ProductService class.
+
+Integrated a WebSocket endpoint for real-time communication.
+
+Updated frontend logic to dynamically reflect live updates.
+
+📤 GitHub repository updated — includes full source code, new features, and stable deliverables for this phase.
+
 ## ⚖️ License
-This project is **free software**.  
-You can use, modify, and share it for learning and development.
+This project is open-source software.
+You are free to use, modify, and share it for learning and development purposes.
 
----
-
-📚 *Made with ❤️ using Java Spark Framework*
+## 📚 Made with ❤️ using Java Spark Framework
